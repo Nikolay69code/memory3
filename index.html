@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <div class="splash-image">
+                <img src="images/logo.jpg" alt="Memory Game">
+            </div>
+            <h1 class="splash-title">TALI IN MED Memory</h1>
+            <p class="splash-description">
+                Фанатская версия игры Memory на тему канала tali in med
+            </p>
+            <button id="startButton" class="start-button">Погнали!</button>
+        </div>
+    </div>
+    <div class="container" id="gameContainer" style="display: none;">
+        <h1 class="welcome-text">Переверни как можно больше парных карточек!</h1>
+        <div class="game-info">
+            <span class="attempts">Попыток: <span id="attempts">0</span></span>
+            <div class="buttons">
+                <button id="restartButton" class="game-button">Играть еще раз</button>
+            </div>
+        </div>
+        <div class="memory-game" id="gameBoard"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

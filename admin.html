@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель администратора | Memory Game</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <h1>Панель управления фотографиями</h1>
+        
+        <div class="upload-section">
+            <h2>Добавить новое фото</h2>
+            <form id="uploadForm">
+                <input type="file" id="photoInput" accept="image/*" required>
+                <button type="submit">Загрузить</button>
+            </form>
+        </div>
+
+        <div class="photos-grid" id="photosGrid">
+            <!-- Здесь будут отображаться фотографии -->
+        </div>
+    </div>
+    <script src="admin.js"></script>
+</body>
+</html> 

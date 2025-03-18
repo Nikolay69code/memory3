@@ -1,0 +1,349 @@
+:root {
+    --tg-theme-bg-color: #1a1a2e;
+    --tg-theme-text-color: #ffffff;
+    --card-size: 120px;
+    --primary-color: #0f3460;
+    --secondary-color: #e94560;
+    --accent-color: #16213e;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--tg-theme-bg-color), var(--primary-color));
+    color: var(--tg-theme-text-color);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.attempts {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+}
+
+.memory-game {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--card-size), 1fr));
+    gap: 15px;
+    perspective: 1000px;
+    margin-top: 20px;
+}
+
+.card {
+    width: var(--card-size);
+    height: var(--card-size);
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    cursor: pointer;
+    margin: auto;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.card-front {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-front::after {
+    content: '?';
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: bold;
+}
+
+.card-back {
+    background: white;
+    transform: rotateY(180deg);
+    overflow: hidden;
+    border: 3px solid var(--secondary-color);
+}
+
+.card-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-back img {
+    transform: scale(1.05);
+}
+
+@keyframes matchedPair {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.card.matched {
+    animation: matchedPair 0.5s ease-in-out;
+}
+
+@media (max-width: 600px) {
+    :root {
+        --card-size: 90px;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+    
+    .game-info {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+
+/* Добавляем эффект свечения при наведении */
+.card-front:hover {
+    box-shadow: 0 0 15px var(--secondary-color);
+}
+
+/* Анимация при неправильном совпадении */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.card.wrong {
+    animation: shake 0.5s ease-in-out;
+}
+
+.welcome-text {
+    text-align: center;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+    font-size: 2rem;
+    text-shadow: 0 0 10px rgba(233, 69, 96, 0.3);
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.game-button {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+}
+
+.game-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
+}
+
+.game-button:active {
+    transform: translateY(1px);
+}
+
+@media (max-width: 600px) {
+    .welcome-text {
+        font-size: 1.5rem;
+    }
+    
+    .buttons {
+        flex-direction: column;
+    }
+}
+
+/* Добавить после существующих стилей */
+
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--tg-theme-bg-color), var(--primary-color));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.splash-content {
+    text-align: center;
+    padding: 20px;
+    max-width: 80%;
+}
+
+.splash-image {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--secondary-color);
+    box-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+    animation: pulse 2s infinite;
+}
+
+.splash-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.splash-description {
+    color: var(--tg-theme-text-color);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(233, 69, 96, 0.7);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+    }
+}
+
+@media (max-width: 600px) {
+    .splash-image {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .splash-description {
+        font-size: 1rem;
+    }
+}
+
+/* Добавить в секцию со стилями заставки */
+.start-button {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 25px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+    animation: buttonPulse 2s infinite;
+}
+
+.start-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(233, 69, 96, 0.5);
+}
+
+.start-button:active {
+    transform: translateY(1px);
+}
+
+@keyframes buttonPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 600px) {
+    .start-button {
+        padding: 12px 30px;
+        font-size: 1.1rem;
+    }
+}
+
+/* Добавить после стилей splash-image */
+.splash-title {
+    color: var(--secondary-color);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0 0 20px 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Обновить медиа-запрос для мобильных устройств */
+@media (max-width: 600px) {
+    .splash-image {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .splash-title {
+        font-size: 1.8rem;
+    }
+    
+    .splash-description {
+        font-size: 1rem;
+    }
+}
